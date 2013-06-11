@@ -2,7 +2,7 @@ IPY_VERSION = dev
 EIN_MAKE = ${MAKE} --directory ein IPY_VERSION=${IPY_VERSION}
 
 pull-and-test:
-	${MAKE} pull-ipython
+	${MAKE} pull
 	${MAKE} travis
 
 travis:
@@ -16,5 +16,11 @@ upgrade-ipython:
 	${EIN_MAKE} env-ipy.${IPY_VERSION}
 	ein/env/ipy.dev/bin/pip install --upgrade ./ipython/
 
-pull-ipython:
-	cd ipython && git pull
+pull: pull-ein pull-ipython
+
+pull-%:
+	cd $* && git pull
+
+update: pull
+	git add ein ipython
+	git commit -m "Update submodule(s)"
