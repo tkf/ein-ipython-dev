@@ -4,9 +4,6 @@ EIN_ENV = ein/env/ipy.${IPY_VERSION}
 
 pull-and-test:
 	${MAKE} pull
-	${MAKE} travis
-
-travis:
 	${MAKE} upgrade-ipython
 	${MAKE} test
 
