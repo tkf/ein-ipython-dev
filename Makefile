@@ -1,5 +1,6 @@
 IPY_VERSION = dev
 EIN_MAKE = ${MAKE} --directory ein IPY_VERSION=${IPY_VERSION}
+EIN_ENV = ein/env/ipy.${IPY_VERSION}
 
 pull-and-test:
 	${MAKE} pull
@@ -13,8 +14,8 @@ test:
 	${EIN_MAKE} travis-ci-testein
 
 upgrade-ipython:
-	${EIN_MAKE} env-ipy.${IPY_VERSION}
-	ein/env/ipy.dev/bin/pip install --upgrade ./ipython/
+	ein/tools/makeenv.sh ${EIN_ENV} base-requirements.txt
+	${EIN_ENV}/bin/pip install --quiet --upgrade ./ipython/
 
 pull: pull-ein pull-ipython
 
